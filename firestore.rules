@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===================================================
+    // REGLAS DE SEGURIDAD - CUENTAS CLARAS
+    // ===================================================
+    // 
+    // ESTAS REGLAS PERMITEN ACCESO TOTAL A FIRESTORE
+    // 
+    // ⚠️ IMPORTANTE: 
+    // Estas reglas son apropiadas para aplicaciones de uso personal
+    // o desarrollo. NO las uses en aplicaciones públicas sin 
+    // agregar autenticación.
+    //
+    // Para publicar estas reglas:
+    // 1. Ve a Firebase Console
+    // 2. Firestore Database → Rules
+    // 3. Copia y pega todo este archivo
+    // 4. Haz clic en "Publish"
+    // ===================================================
+
+    // Permitir lectura y escritura en todas las colecciones
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+    // ===================================================
+    // ALTERNATIVA CON AUTENTICACIÓN (MÁS SEGURO)
+    // ===================================================
+    // Si quieres agregar autenticación en el futuro,
+    // comenta las reglas de arriba y descomenta estas:
+    //
+    // match /{document=**} {
+    //   allow read, write: if request.auth != null;
+    // }
+    //
+    // Esto permitirá acceso solo a usuarios autenticados
+    // ===================================================
+  }
+}
+
+
+
